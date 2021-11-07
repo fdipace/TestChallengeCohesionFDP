@@ -21,6 +21,13 @@ namespace TestChallengeCohesionFDP
             var response = client.Execute(request);
             var deserialize = new JsonDeserializer();
             var output = deserialize.Deserialize<List<Dictionary<string, string>>>(response);
+
+            foreach (var item in output)
+            {
+                var resultStationName = item["station_name"];
+
+                Assert.IsTrue(resultStationName.Equals(stationName));
+            }
         }
     }
 }
