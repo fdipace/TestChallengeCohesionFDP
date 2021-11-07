@@ -63,5 +63,18 @@ namespace TestChallengeCohesionFDP
 
             }
         }
+
+        [TestMethod]
+        public void Story3()
+        {
+            string stationName = "63rd Street Weather Station";
+            var client = new RestClient(baseURL);
+
+            var request = new RestRequest("?station_name=" + stationName + "&$where=battery_life < full", Method.GET);
+            var response = client.Execute(request);
+            var deserialize = new JsonDeserializer();
+            var output = deserialize.Deserialize<List<Dictionary<string, string>>>(response);
+
+        }
     }
 }
