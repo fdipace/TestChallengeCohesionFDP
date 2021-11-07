@@ -1,6 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
+using RestSharp.Serialization.Json;
 using System;
+using System.Collections.Generic;
 
 namespace TestChallengeCohesionFDP
 {
@@ -17,6 +19,8 @@ namespace TestChallengeCohesionFDP
 
             var request = new RestRequest("?station_name=" + stationName, Method.GET);
             var response = client.Execute(request);
+            var deserialize = new JsonDeserializer();
+            var output = deserialize.Deserialize<List<Dictionary<string, string>>>(response);
         }
     }
 }
