@@ -25,8 +25,11 @@ namespace TestChallengeCohesionFDP
             foreach (var item in output)
             {
                 var resultStationName = item["station_name"];
+                var resultMeasurementId = item["measurement_id"];
 
-                Assert.IsTrue(resultStationName.Equals(stationName));
+                Assert.IsTrue(resultStationName.Equals(stationName), "Station Name '" + resultStationName + "' does not match with expected station name '." + stationName + "'");
+                Assert.IsTrue(resultMeasurementId.ToLower().Contains(stationName.ToLower().Replace(" ", "")), "Measurement Station Id '" + resultMeasurementId + "' does not correspond with expected Measurement Id for Station Name '." + stationName + "'");
+
             }
         }
     }
