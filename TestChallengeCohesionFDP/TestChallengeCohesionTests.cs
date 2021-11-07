@@ -73,8 +73,12 @@ namespace TestChallengeCohesionFDP
             var request = new RestRequest("?station_name=" + stationName + "&$where=battery_life < full", Method.GET);
             var response = client.Execute(request);
             var deserialize = new JsonDeserializer();
-            var output = deserialize.Deserialize<List<Dictionary<string, string>>>(response);
+            var output = deserialize.Deserialize<Dictionary<string, string>>(response);
 
+            var code = output["code"];
+            var message = output["message"];
+            Assert.IsTrue(code.Equals("query.compiler.malformed"));
+            Assert.IsTrue(message.ToLower().Contains("Could not parse SoQL query".ToLower()));
         }
     }
 }
