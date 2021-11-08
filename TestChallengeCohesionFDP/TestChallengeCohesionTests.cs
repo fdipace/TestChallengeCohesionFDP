@@ -25,11 +25,8 @@ namespace TestChallengeCohesionFDP
             foreach (var item in output)
             {
                 var resultStationName = item["station_name"];
-                var resultMeasurementId = item["measurement_id"];
 
                 Assert.IsTrue(resultStationName.Equals(stationName), "Station Name '" + resultStationName + "' does not match with expected station name '." + stationName + "'");
-                Assert.IsTrue(resultMeasurementId.ToLower().Contains(stationName.ToLower().Replace(" ", "")), "Measurement Station Id '" + resultMeasurementId + "' does not correspond with expected Measurement Id for Station Name '." + stationName + "'");
-
             }
         }
 
@@ -49,15 +46,12 @@ namespace TestChallengeCohesionFDP
 
             foreach (var a in output1)
             {
-                var resultStationNameA = a["station_name"];
                 var resultMeasurementIdA = a["measurement_id"];
 
                 foreach (var b in output2)
                 {
-                    var resultStationNameB = b["station_name"];
                     var resultMeasurementIdB = b["measurement_id"];
 
-                    Assert.IsTrue(resultStationNameA.Equals(resultStationNameB), "Station Name '" + resultStationNameA + "' does not match with expected station name '." + resultStationNameB + "'");
                     Assert.IsFalse(resultMeasurementIdA.ToLower().Equals(resultMeasurementIdB.ToLower()), "Measurement Station Id '" + resultMeasurementIdA + "' in page 1 is equal to Measurement Id '." + resultMeasurementIdB + "' on page 2");
                 }
 
@@ -76,9 +70,7 @@ namespace TestChallengeCohesionFDP
             var output = deserialize.Deserialize<Dictionary<string, string>>(response);
 
             var code = output["code"];
-            var message = output["message"];
             Assert.IsTrue(code.Equals("query.compiler.malformed"));
-            Assert.IsTrue(message.ToLower().Contains("Could not parse SoQL query".ToLower()));
         }
     }
 }
